@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Change shape or color</title>
+  </head>
+  <style>
+    body {
+      margin: 0px;
+      padding: 0px;
+    }
+    #container {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      height: 100vh;
+      justify-content: center;
+      /* position: absolute;
+  	left: 50%;
+  	top: 50%;
+  	transform: translate(-50%, -50%); */
+      align-items: center;
+    }
+
+    #container div:not(:first-child) {
+      padding: 3px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #circle {
+      height: 150px;
+      width: 150px;
+      border-radius: 50%;
+      background-color: purple;
+      box-sizing: border-box;
+    }
+    .inner {
+      background-color: white;
+      position: relative;
+      width: 75px;
+      height: 75px;
+      left: 38px;
+      top: 40px;
+    }
+    .triangle-bottomleft {
+      background-color: transparent;
+      position: relative;
+      left: 38px;
+      top: 40px;
+      width: 0;
+      height: 0;
+      border-bottom: 75px solid red;
+      border-right: 75px solid transparent;
+    }
+  </style>
+  <body>
+    <div id="container">
+      <div id="circle">
+        <div class="inner"></div>
+        <!-- <canvas class="inner" width="75" height="75"></canvas> -->
+      </div>
+      <div id="change-color">
+        <button>Change color</button>
+      </div>
+
+      <div id="change-shape">
+        <button>Change shape</button>
+      </div>
+    </div>
+    <script>
+      var index = 0;
+      var isTriangle = false;
+      var color = [
+        "#e91e63",
+        "#00bcd4",
+        "#ffeb3b",
+        "#129d17",
+        "#d736f4",
+        "#171010",
+        "purple",
+      ];
+      var chShape = document.getElementById("change-shape");
+      var chColor = document.getElementById("change-color");
+
+      chShape.addEventListener("click", changeShape);
+      chColor.addEventListener("click", changeColor);
+
+      function changeColor() {
+        document.getElementById("circle").style.backgroundColor =
+          color[index++];
+        if (index == 7) index = 0;
+      }
+      function changeShape() {
+        if (!isTriangle) {
+          var i = document.getElementsByClassName("inner")[0];
+          i.className = "triangle-bottomleft";
+          isTriangle = true;
+        } else {
+          var i = document.getElementsByClassName("triangle-bottomleft")[0];
+          i.className = "inner";
+          isTriangle = false;
+        }
+
+        // var c = document.getElementById("inner");//document.getElementById("myCanvas");
+        // var ctx = c.getContext("2d");
+        // ctx.beginPath();
+        // ctx.moveTo(20, 20);
+        // ctx.lineTo(20, 100);
+        // ctx.lineTo(70, 100);
+        // ctx.closePath();
+        // ctx.stroke();
+        // ctx.fillStyle = "red";
+        // ctx.fill();
+      }
+    </script>
+  </body>
